@@ -14,6 +14,9 @@ const roomService = new RoomServiceClient(
 
 export const onBlock = async (id: string) => {
   const self = await getSelf();
+  if (!self) {
+    throw new Error("Self not found");
+  }
 
   let blockedUser;
 
@@ -38,6 +41,6 @@ export const onUnblock = async (id: string) => {
   const self = await getSelf();
   const unblockedUser = await unblockUser(id);
 
-  revalidatePath(`/u/${self.username}/community`);
+  revalidatePath(`/u/${self!.username}/community`);
   return unblockedUser;
 };

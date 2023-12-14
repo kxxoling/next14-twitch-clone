@@ -6,7 +6,7 @@ import { UserAvatar } from "@/components/user-avatar";
 
 interface ThumbnailProps {
   src: string | null;
-  fallback: string;
+  fallback: string | null;
   isLive: boolean;
   username: string;
 };
@@ -26,7 +26,7 @@ export const Thumbnail = ({
           size="lg"
           showBadge
           username={username}
-          imageUrl={fallback}
+          image={fallback}
           isLive={isLive}
         />
       </div>

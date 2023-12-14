@@ -1,15 +1,14 @@
 "use client";
 
-import { toast } from "sonner";
 import { Heart } from "lucide-react";
-import { useTransition } from "react";
-import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { toast } from "sonner";
 
-import { cn } from "@/lib/utils";
+import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { onFollow, onUnfollow } from "@/actions/follow";
+import { cn } from "@/lib/utils";
 
 interface ActionsProps {
   hostIdentity: string;
@@ -24,7 +23,8 @@ export const Actions = ({
 }: ActionsProps) => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  const { userId } = useAuth();
+  // const { userId } = useAuth();
+  const userId = '1'
 
   const handleFollow = () => {
     startTransition(() => {

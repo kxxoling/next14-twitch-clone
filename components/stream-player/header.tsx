@@ -13,7 +13,7 @@ import { UserAvatar, UserAvatarSkeleton } from "@/components/user-avatar";
 import { Actions, ActionsSkeleton } from "./actions";
 
 interface HeaderProps {
-  imageUrl: string;
+  image: string | null;
   hostName: string;
   hostIdentity: string;
   viewerIdentity: string;
@@ -22,7 +22,7 @@ interface HeaderProps {
 };
 
 export const Header = ({
-  imageUrl,
+  image,
   hostName,
   hostIdentity,
   viewerIdentity,
@@ -42,7 +42,7 @@ export const Header = ({
     <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4">
       <div className="flex items-center gap-x-3">
         <UserAvatar
-          imageUrl={imageUrl}
+          image={image}
           username={hostName}
           size="lg"
           isLive={isLive}
