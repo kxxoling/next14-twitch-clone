@@ -1,18 +1,17 @@
 "use client";
 
-import { Stream, User } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 
+import { useViewerToken } from "@/hooks/use-viewer-token";
 import { cn } from "@/lib/utils";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
-import { useViewerToken } from "@/hooks/use-viewer-token";
 
-import { InfoCard } from "./info-card";
 import { AboutCard } from "./about-card";
-import { ChatToggle } from "./chat-toggle";
 import { Chat, ChatSkeleton } from "./chat";
-import { Video, VideoSkeleton } from "./video";
+import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
+import { InfoCard } from "./info-card";
+import { Video, VideoSkeleton } from "./video";
 
 type CustomStream = {
   id: string;
@@ -29,7 +28,7 @@ type CustomUser = {
   username: string;
   bio: string | null;
   stream: CustomStream | null;
-  imageUrl: string;
+  image: string | null;
   _count: { followedBy: number }
 };
 
@@ -79,7 +78,7 @@ export const StreamPlayer = ({
             hostName={user.username}
             hostIdentity={user.id}
             viewerIdentity={identity}
-            imageUrl={user.imageUrl}
+            image={user.image}
             isFollowing={isFollowing}
             name={stream.name}
           />

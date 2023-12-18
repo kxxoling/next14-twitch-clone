@@ -1,19 +1,21 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
-import { usePathname } from "next/navigation";
-import { 
+import {
   Fullscreen,
   KeyRound,
   MessageSquare,
   Users,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { useSession } from 'next-auth/react'
 
 import { NavItem, NavItemSkeleton } from "./nav-item";
 
 export const Navigation = () => {
   const pathname = usePathname();
-  const { user } = useUser();
+  const session = useSession();
+  // @ts-ignore
+  const { data: { user } } = session;
 
   const routes = [
     {
@@ -50,7 +52,7 @@ export const Navigation = () => {
 
   return (
     <ul className="space-y-2 px-2 pt-4 lg:pt-0">
-     {routes.map((route) => (
+      {routes.map((route) => (
         <NavItem
           key={route.href}
           label={route.label}
@@ -58,7 +60,7 @@ export const Navigation = () => {
           href={route.href}
           isActive={pathname === route.href}
         />
-     ))}
+      ))}
     </ul>
   );
 };

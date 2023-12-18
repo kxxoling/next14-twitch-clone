@@ -27,14 +27,14 @@ const avatarSizes = cva(
 interface UserAvatarProps
   extends VariantProps<typeof avatarSizes> {
   username: string;
-  imageUrl: string;
+  image: string | null;
   isLive?: boolean;
   showBadge?: boolean;
 };
 
 export const UserAvatar = ({
   username,
-  imageUrl,
+  image,
   isLive,
   showBadge,
   size,
@@ -49,7 +49,7 @@ export const UserAvatar = ({
           avatarSizes({ size })
         )}
       >
-        <AvatarImage src={imageUrl} className="object-cover" />
+        <AvatarImage src={image!} className="object-cover" />
         <AvatarFallback>
           {username[0]}
           {username[username.length - 1]}

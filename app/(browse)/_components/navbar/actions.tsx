@@ -1,24 +1,19 @@
-import Link from "next/link";
 import { Clapperboard } from "lucide-react";
-import { 
-  SignInButton, 
-  UserButton, 
-  currentUser
-} from "@clerk/nextjs";
+
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import { SignIn, SignOut } from '@/app/(auth)/sign-in/page';
+import { getSelf } from "@/lib/auth-service";
+
 
 export const Actions = async () => {
-  const user = await currentUser();
+  const user = await getSelf().catch(() => null);
 
   return (
     <div className="flex items-center justify-end gap-x-2 ml-4 lg:ml-0">
       {!user && (
-        <SignInButton>
-          <Button size="sm" variant="primary">
-            Login
-          </Button>
-        </SignInButton>
+        <SignIn />
       )}
       {!!user && (
         <div className="flex items-center gap-x-4">
@@ -35,9 +30,8 @@ export const Actions = async () => {
               </span>
             </Link>
           </Button>
-          <UserButton
-            afterSignOutUrl="/"
-          />
+
+          <SignOut />
         </div>
       )}
     </div>

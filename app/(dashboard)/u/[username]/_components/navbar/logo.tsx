@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Poppins } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
 
 import { cn } from "@/lib/utils";
 
@@ -16,7 +16,7 @@ export const Logo = () => {
         <div className="bg-white rounded-full p-1 mr-12 shrink-0 lg:mr-0 lg:shrink">
           <Image
             src="/spooky.svg"
-            alt="Gamehub"
+            alt="GameHub"
             height="32"
             width="32"
           />
@@ -26,7 +26,7 @@ export const Logo = () => {
           font.className
         )}>
           <p className="text-lg font-semibold">
-            Gamehub
+            GameHub
           </p>
           <p className="text-xs text-muted-foreground">
             Creator dashboard

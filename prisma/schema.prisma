@@ -5,21 +5,61 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
+// Necessary for Next auth
+model Account {
+  id                       String  @id @default(cuid())
+  type                     String
+  provider                 String
+  providerAccountId        String
+  refresh_token            String? // @db.Text
+  refresh_token_expires_in Int?
+  access_token             String? // @db.Text
+  expires_at               Int?
+  token_type               String?
+  scope                    String?
+  id_token                 String? // @db.Text
+  session_state            String?
+  userId                   String
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expires      DateTime
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
 model User {
-  id String @id @default(uuid())
-  username String @unique
-  imageUrl String @db.Text
-  externalUserId String @unique
+  id            String    @id @default(uuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+
+  username       String @unique
+  saltedPassword String?
+  // externalUserId String @unique
+
   bio String? @db.Text
 
-  following Follow[] @relation("Following")
+  following  Follow[] @relation("Following")
   followedBy Follow[] @relation("FollowedBy")
 
-  blocking Block[] @relation("Blocking")
+  blocking  Block[] @relation("Blocking")
   blockedBy Block[] @relation("BlockedBy")
 
   stream Stream?
@@ -29,21 +69,21 @@ model User {
 }
 
 model Stream {
-  id String @id @default(uuid())
-  name String @db.Text
+  id           String  @id @default(uuid())
+  name         String  @db.Text
   thumbnailUrl String? @db.Text
 
   ingressId String? @unique
   serverUrl String? @db.Text
   streamKey String? @db.Text
 
-  isLive Boolean @default(false)
-  isChatEnabled Boolean @default(true)
-  isChatDelayed Boolean @default(false)
+  isLive              Boolean @default(false)
+  isChatEnabled       Boolean @default(true)
+  isChatDelayed       Boolean @default(false)
   isChatFollowersOnly Boolean @default(false)
 
   userId String @unique
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -54,11 +94,11 @@ model Stream {
 }
 
 model Follow {
-  id String @id @default(uuid())
-  followerId String
+  id          String @id @default(uuid())
+  followerId  String
   followingId String
 
-  follower User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
+  follower  User @relation(name: "Following", fields: [followerId], references: [id], onDelete: Cascade)
   following User @relation(name: "FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
@@ -70,7 +110,7 @@ model Follow {
 }
 
 model Block {
-  id String @id @default(uuid())
+  id        String @id @default(uuid())
   blockerId String
   blockedId String
 

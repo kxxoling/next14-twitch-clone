@@ -1,4 +1,4 @@
-import { db } from "@/lib/db"
+import { db } from "@/lib/db";
 
 export const getUserByUsername = async (username: string) => {
   const user = await db.user.findUnique({
@@ -7,10 +7,9 @@ export const getUserByUsername = async (username: string) => {
     },
     select: {
       id: true,
-      externalUserId: true,
       username: true,
       bio: true,
-      imageUrl: true,
+      image: true,
       stream: {
         select: {
           id: true,

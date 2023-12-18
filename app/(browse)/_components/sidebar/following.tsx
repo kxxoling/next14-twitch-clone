@@ -37,7 +37,7 @@ export const Following = ({
           <UserItem
             key={follow.following.id}
             username={follow.following.username}
-            imageUrl={follow.following.imageUrl}
+            image={follow.following.image}
             isLive={follow.following.stream?.isLive}
           />
         ))}

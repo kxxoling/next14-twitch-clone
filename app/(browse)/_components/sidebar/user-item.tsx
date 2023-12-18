@@ -12,13 +12,13 @@ import { LiveBadge } from "@/components/live-badge";
 
 interface UserItemProps {
   username: string;
-  imageUrl: string;
+  image: string | null;
   isLive?: boolean;
 };
 
 export const UserItem = ({
   username,
-  imageUrl,
+  image,
   isLive,
 }: UserItemProps) => {
   const pathname = usePathname();
@@ -44,7 +44,7 @@ export const UserItem = ({
           collapsed && "justify-center",
         )}>
           <UserAvatar
-            imageUrl={imageUrl}
+            image={image}
             username={username}
             isLive={isLive}
           />

@@ -11,7 +11,7 @@ const CommunityPage = async () => {
   const formattedData = blockedUsers.map((block) => ({
     ...block,
     userId: block.blocked.id,
-    imageUrl: block.blocked.imageUrl,
+    image: block.blocked.image,
     username: block.blocked.username,
     createdAt: format(new Date(block.blocked.createdAt), "dd/MM/yyyy"),
   }));
@@ -23,6 +23,7 @@ const CommunityPage = async () => {
           Community Settings
         </h1>
       </div>
+      {/* @ts-ignore */}
       <DataTable columns={columns} data={formattedData} />
     </div>
    );

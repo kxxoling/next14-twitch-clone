@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
-import { Navbar } from "./_components/navbar";
 import { Container } from "./_components/container";
+import { Navbar } from "./_components/navbar";
 import { Sidebar, SidebarSkeleton } from "./_components/sidebar";
 
 const BrowseLayout = ({
