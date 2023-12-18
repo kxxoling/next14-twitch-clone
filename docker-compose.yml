@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  web:
+    image: twitch-clone
+    container_name: twitch-clone-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    env_file:
+      - .env.docker.local
+    depends_on:
+      - database
+    command: sh -c "until nc -z database 3306; do sleep 1; done && npx -y prisma db push --skip-generate && node server.js"
+    restart: unless-stopped
+
+  database:
+    image: mysql
+    user: ${MYSQL_USER}
+    container_name: twitch-clone-db
+    restart: unless-stopped
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./database/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
