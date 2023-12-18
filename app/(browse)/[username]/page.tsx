@@ -37,3 +37,4 @@ const UserPage = async ({
 }
  
 export default UserPage;
+export const dynamic = 'force-dynamic';

@@ -55,3 +55,4 @@ const CreatorPage = async ({
 }
 
 export default CreatorPage;
+export const dynamic = 'force-dynamic';

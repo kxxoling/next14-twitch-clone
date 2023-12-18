@@ -40,3 +40,4 @@ const ChatPage = async () => {
 };
  
 export default ChatPage;
+export const dynamic = 'force-dynamic';

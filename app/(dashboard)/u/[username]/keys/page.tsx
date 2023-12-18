@@ -30,3 +30,4 @@ const KeysPage = async () => {
 };
  
 export default KeysPage;
+export const dynamic = 'force-dynamic';

@@ -30,3 +30,4 @@ const CommunityPage = async () => {
 }
  
 export default CommunityPage;
+export const dynamic = 'force-dynamic';
